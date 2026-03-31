@@ -1,0 +1,41 @@
+global:
+  sendAnonymousUsage: false
+
+api:
+  dashboard: true
+  insecure: true
+  logs: true
+
+entryPoints:
+
+  web:
+    address: ":31080"
+
+    forwardedHeaders:
+      trustedIPs:
+        - "127.0.0.1/32"
+
+  websecure:
+    address: ":31443"
+
+    proxyProtocol:
+      trustedIPs:
+        - "127.0.0.1/32"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+
+certificatesResolvers:
+  le:
+    acme:
+      storage: /letsencrypt/acme.json
+
+      httpChallenge:
+        entryPoint: web
+
+log:
+  level: INFO
+
+accessLog: {}

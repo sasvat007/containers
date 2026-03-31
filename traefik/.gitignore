@@ -1,0 +1,16 @@
+# certificates
+traefik/letsencrypt/acme.json
+
+# environment
+.env
+
+# logs
+*.log
+
+# editor files
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
