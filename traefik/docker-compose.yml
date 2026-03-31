@@ -1,7 +1,7 @@
 services:
 
   traefik:
-    image: traefik:v3
+    image: traefik
     container_name: traefik
     restart: always
 
@@ -14,7 +14,7 @@ services:
       - "8080:8080"
 
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /run/user/1000/podman/podman.sock:/var/run/docker.sock:ro # Docker socket
       - ./traefik.yml:/etc/traefik/traefik.yml
       - ./letsencrypt:/letsencrypt
 
@@ -23,7 +23,7 @@ services:
 
 
   whoami:
-    image: traefik/whoami
+    image: traefik/whoami:latest
     container_name: whoami
     restart: always
 
