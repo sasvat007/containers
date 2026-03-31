@@ -9,8 +9,8 @@ services:
       - --configFile=/etc/traefik/traefik.yml
 
     ports:
-      - "31080:80"
-      - "31443:443"
+      - "127.0.0.1:31080:80"
+      - "127.0.0.1:31443:443"
       
     volumes:
       - /run/user/1001/podman/podman.sock:/var/run/docker.sock:ro # Docker socket
