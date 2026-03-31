@@ -11,8 +11,7 @@ services:
     ports:
       - "31080:31080"
       - "31443:31443"
-      - "8080:8080"
-
+      
     volumes:
       - /run/user/1001/podman/podman.sock:/var/run/docker.sock:ro # Docker socket
       - ./traefik.yml:/etc/traefik/traefik.yml
