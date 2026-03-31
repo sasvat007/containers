@@ -9,9 +9,9 @@ services:
       - --configFile=/etc/traefik/traefik.yml
 
     ports:
-      - "127.0.0.1:31080"
-      - "127.0.0.1:31443"
-      - "127.0.0.1:8080"
+      - "31080:31080"
+      - "31443:31443"
+      - "8080q:8080"
 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
