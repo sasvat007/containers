@@ -11,7 +11,7 @@ services:
     ports:
       - "31080:31080"
       - "31443:31443"
-      - "8080q:8080"
+      - "8080:8080"
 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
