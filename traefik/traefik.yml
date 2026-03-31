@@ -9,14 +9,14 @@ api:
 entryPoints:
 
   web:
-    address: ":31080"
+    address: ":80"
 
     forwardedHeaders:
       trustedIPs:
         - "127.0.0.1/32"
 
   websecure:
-    address: ":31443"
+    address: ":443"
 
     proxyProtocol:
       trustedIPs:

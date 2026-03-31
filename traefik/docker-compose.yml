@@ -1,7 +1,7 @@
 services:
 
   traefik:
-    image: traefik:v3.4
+    image: traefik:v3.6
     container_name: traefik
     restart: always
 
@@ -9,8 +9,8 @@ services:
       - --configFile=/etc/traefik/traefik.yml
 
     ports:
-      - "31080:31080"
-      - "31443:31443"
+      - "31080:80"
+      - "31443:443"
       
     volumes:
       - /run/user/1001/podman/podman.sock:/var/run/docker.sock:ro # Docker socket
