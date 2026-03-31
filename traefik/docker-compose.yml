@@ -1,12 +1,11 @@
 services:
 
   traefik:
-    image: traefik:v3.6
+    image: traefik
     container_name: traefik
     restart: always
-
-    command:
-      - --configFile=/etc/traefik/traefik.yml
+    security_opt:
+      - label=type:spc_t
 
     ports:
       - "127.0.0.1:31080:80"
@@ -14,7 +13,7 @@ services:
       
     volumes:
       - /run/user/1001/podman/podman.sock:/var/run/docker.sock:ro # Docker socket
-      - ./traefik.yml:/etc/traefik/traefik.yml
+      - ./traefik.yml:/traefik.yml
       - ./letsencrypt:/letsencrypt
 
     networks:
