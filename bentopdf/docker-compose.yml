@@ -1,4 +1,4 @@
-service:
+services:
   bentopdf:
     image: bentopdf/bentopdf-simple:latest
     container_name: bentopdf
