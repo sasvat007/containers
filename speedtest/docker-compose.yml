@@ -1,0 +1,22 @@
+services:
+    speedtest:
+        container_name: speedtest
+        image: ghcr.io/librespeed/speedtest:latest
+        restart: always
+        security_opt:
+          - label=disable
+        environment:
+            MODE: standalone
+            TITLE: Speedtest
+            DISTANCE: "km"
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.speedtest.rule=Host(`speedtest.sasvat.me`)"
+            - "traefik.http.routers.speedtest.entrypoints=websecure"
+            - "traefik.http.routers.speedtest.tls.certresolver=le"
+            - "traefik.http.services.speedtest.loadbalancer.server.port=8080"
+        networks:
+            - traefik_net
+networks:
+  traefik_net:
+    external: true
