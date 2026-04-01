@@ -1,0 +1,19 @@
+services:
+  bentopdf:
+    image: bentopdf/bentopdf-simple:latest
+    container_name: bentopdf
+    restart: always
+    security_opt:
+      - label=disable
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bentopdf.rule=Host(`pdf.sasvat.me`)"
+      - "traefik.http.routers.bentopdf.entrypoints=websecure"
+      - "traefik.http.routers.bentopdf.tls.certresolver=le"
+      - "traefik.http.services.bentopdf.loadbalancer.server.port=8080"
+    networks:
+      - traefik_net
+networks:
+  traefik_net:
+    external: true
+    
