@@ -1,0 +1,25 @@
+# Jellyfin runtime data
+
+config/
+cache/
+
+# Media libraries (large files, never commit)
+
+movies/
+series/
+
+# Optional fonts directory
+
+fonts/
+
+# Docker / runtime files
+
+*.log
+*.tmp
+*.pid
+
+# OS junk
+
+.DS_Store
+Thumbs.db
+
