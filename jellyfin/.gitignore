@@ -5,8 +5,8 @@ cache/
 
 # Media libraries (large files, never commit)
 
-media/
-media2/
+movies/
+series/
 
 # Optional fonts directory
 
