@@ -1,5 +1,5 @@
 # certificates
-traefik/letsencrypt/acme.json
+letsencrypt/
 
 # environment
 .env
