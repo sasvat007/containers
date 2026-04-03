@@ -1,0 +1,75 @@
+services:
+
+  yamtrack:
+    container_name: yamtrack
+    image: ghcr.io/fuzzygrim/yamtrack
+    restart: always
+    security_opt:
+      - label=disable
+    depends_on:
+      - db
+      - redis
+
+    environment:
+      - TZ=Europe/Berlin
+      - SECRET=${SECRET}
+
+      - REDIS_URL=redis://redis:6379
+      - DB_HOST=db
+      - DB_NAME=yamtrack
+      - DB_USER=yamtrack
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_PORT=5432
+
+    networks:
+      - yamtrack
+      - traefik_net
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.yamtrack.rule=Host(`yamtrack.sasvat.me`)"
+      - "traefik.http.routers.yamtrack.entrypoints=websecure"
+      - "traefik.http.routers.yamtrack.tls.certresolver=le"
+      - "traefik.http.services.yamtrack.loadbalancer.server.port=8000"
+
+
+  db:
+    image: postgres:16
+    container_name: yamtrack-db
+    restart: always
+    security_opt:
+      - label=disable
+    environment:
+      - POSTGRES_DB=yamtrack
+      - POSTGRES_USER=yamtrack
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+    volumes:
+      - ./db:/var/lib/postgresql/data:Z
+
+    networks:
+      - yamtrack
+
+
+  redis:
+    image: redis:7-bookworm
+    container_name: yamtrack-redis
+    restart: always
+    security_opt:
+      - label=disable
+
+    volumes:
+      - redis_data:/data
+
+    networks:
+      - yamtrack
+
+
+networks:
+  yamtrack:
+  traefik_net:
+    external: true
+
+
+volumes:
+  redis_data:

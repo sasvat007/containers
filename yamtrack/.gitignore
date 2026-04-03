@@ -1,0 +1,11 @@
+# secrets
+.env
+
+# database
+db/
+
+# redis
+redis_data/
+
+# logs
+*.log
