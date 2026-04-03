@@ -9,13 +9,13 @@ services:
             - ./cache:/cache
 
             - type: bind
-              source: ./media
-              target: /media
+              source: ./movies
+              target: /movies
               read_only: true
             
             - type: bind
-              source: ./media2
-              target: /media2
+              source: ./series
+              target: /series
               read_only: true
         environment:
             - JELLYFIN_PublishedServerUrl=https://jellyfin.sasvat.me
