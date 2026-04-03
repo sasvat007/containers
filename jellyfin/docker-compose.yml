@@ -3,6 +3,8 @@ services:
         image: jellyfin/jellyfin:latest
         container_name: jellyfin
         restart: always
+        security_opt:
+            - label=disable
 
         volumes:
             - ./config:/config
