@@ -1,0 +1,19 @@
+# Environment variables
+.env
+
+# Photo and video storage
+library/
+
+# PostgreSQL database data
+db/
+
+# Model cache used by ML container
+model-cache/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+.DS_Store
