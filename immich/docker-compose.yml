@@ -30,8 +30,6 @@ services:
       - "traefik.http.routers.immich.tls.certresolver=le"
       - "traefik.http.services.immich.loadbalancer.server.port=2283"
 
-    healthcheck:
-      disable: false
 
 
   immich-machine-learning:
@@ -46,16 +44,12 @@ services:
 
     restart: always
 
-    healthcheck:
-      disable: false
 
 
   redis:
     container_name: immich_redis
     image: docker.io/valkey/valkey:9@sha256:3eeb09785cd61ec8e3be35f8804c8892080f3ca21934d628abc24ee4ed1698f6
 
-    healthcheck:
-      test: redis-cli ping || exit 1
 
     restart: always
     
