@@ -10,9 +10,9 @@ services:
     ports:
       - "127.0.0.1:31080:80"
       - "127.0.0.1:31443:443"
-      
+
     volumes:
-      - /run/user/1001/podman/podman.sock:/var/run/docker.sock:ro # Docker socket
+      - /run/user/1002/podman/podman.sock:/var/run/docker.sock:ro # Docker socket
       - ./traefik.yml:/traefik.yml
       - ./letsencrypt:/letsencrypt
 
