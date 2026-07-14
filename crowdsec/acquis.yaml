@@ -1,0 +1,6 @@
+#Crowdsec knows what type of logs it is reading inside its container
+
+filenames:
+  - /var/log/traefik/access.log
+labels:
+  type: traefik

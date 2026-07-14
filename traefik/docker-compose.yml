@@ -15,6 +15,7 @@ services:
       - /run/user/1002/podman/podman.sock:/var/run/docker.sock:ro # Docker socket
       - ./traefik.yml:/traefik.yml
       - ./letsencrypt:/letsencrypt
+      - ./logs:/var/log/traefik
 
     networks:
       - traefik_net
@@ -34,6 +35,16 @@ services:
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=le"
       - "traefik.http.services.whoami.loadbalancer.server.port=80"
+      #Middleware for crowdsec configuration
+      - "traefik.http.middlewares.crowdsec.plugin.crowdsec.Enabled=true"
+      - "traefik.http.middlewares.crowdsec.plugin.crowdsec.CrowdsecMode=live"
+      # Points to the container name in the other file across the shared network
+      - "traefik.http.middlewares.crowdsec.plugin.crowdsec.CrowdsecLapiHost=crowdsec:8080"
+      - "traefik.http.middlewares.crowdsec.plugin.crowdsec.CrowdsecLapiScheme=http"
+      - "traefik.http.middlewares.crowdsec.plugin.crowdsec.CrowdsecLapiKey=YOUR_GENERATED_KEY"
+      
+      # Apply Middleware
+      - "traefik.http.routers.whoami.middlewares=crowdsec"
 
 networks:
   traefik_net:

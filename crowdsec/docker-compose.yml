@@ -1,0 +1,24 @@
+services:
+  crowdsec:
+    image: crowdsecurity/crowdsec:latest
+    container_name: crowdsec
+    restart: always
+    environment:
+      - COLLECTIONS=crowdsecurity/traefik
+    volumes:
+      # Read-only access to the logs folder in the traefik directory
+      - ../traefik/logs:/var/log/traefik:ro
+      - ./acquis.yaml:/etc/crowdsec/acquis.d/traefik.yaml:ro
+      - crowdsec-db:/var/lib/crowdsec/data/
+      - crowdsec-config:/etc/crowdsec/
+    networks:
+      # Connect to the same network so Traefik can talk to it
+      - traefik_net
+
+networks:
+  traefik_net:
+    external: true
+
+volumes:
+  crowdsec-db:
+  crowdsec-config:
