@@ -27,16 +27,7 @@ services:
             - "traefik.http.routers.jellyfin.entrypoints=websecure"
             - "traefik.http.routers.jellyfin.tls.certresolver=le"
             - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
-            # ─── CROWDSEC MIDDLEWARE (QUICK TEST) ───
-            - "traefik.http.middlewares.crowdsec.plugin.crowdsec.Enabled=true"
-            - "traefik.http.middlewares.crowdsec.plugin.crowdsec.CrowdsecMode=live"
-            - "traefik.http.middlewares.crowdsec.plugin.crowdsec.CrowdsecLapiHost=crowdsec:8080"
-            - "traefik.http.middlewares.crowdsec.plugin.crowdsec.CrowdsecLapiScheme=http"
-      # Paste your actual key here just for this test
-            - "traefik.http.middlewares.crowdsec.plugin.crowdsec.CrowdsecLapiKey=YOUR_ACTUAL_API_KEY_HERE"
-      
-      # ─── APPLY MIDDLEWARE TO JELLYFIN ───
-            - "traefik.http.routers.jellyfin.middlewares=crowdsec"
+            - "traefik.http.routers.jellyfin.middlewares=crowdsec-bouncer@file"
         networks:
             - traefik_net
 networks:

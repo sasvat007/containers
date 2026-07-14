@@ -28,6 +28,15 @@ providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
+  file:
+    filename: /dynamic/crowdsec.yml
+    watch: true
+
+experimental:
+  plugins:
+    crowdsec:
+      moduleName: github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
+      version: v1.4.2
 
 certificatesResolvers:
   le:
@@ -40,4 +49,5 @@ certificatesResolvers:
 log:
   level: DEBUG
 
-accessLog: {}
+accessLog:
+  filePath: /var/log/traefik/access.log
