@@ -7,8 +7,8 @@ services:
       - COLLECTIONS=crowdsecurity/traefik
     volumes:
       # Read-only access to the logs folder in the traefik directory
-      - ../traefik/logs:/var/log/traefik:ro
-      - ./acquis.yaml:/etc/crowdsec/acquis.d/traefik.yaml:ro
+      - ../traefik/logs:/var/log/traefik:ro,Z
+      - ./acquis.yaml:/etc/crowdsec/acquis.d/traefik.yaml:ro,Z
       - crowdsec-db:/var/lib/crowdsec/data/
       - crowdsec-config:/etc/crowdsec/
     networks:
