@@ -114,7 +114,7 @@ services:
       - "traefik.http.routers.dawarich.rule=Host(`dawarich.sasvat.me`)"
       - "traefik.http.routers.dawarich.entrypoints=websecure"
       - "traefik.http.routers.dawarich.tls.certresolver=le"
-
+      - "traefik.http.services.dawarich.loadbalancer.server.scheme=http"
       # Dawarich listens on port 3000
       - "traefik.http.services.dawarich.loadbalancer.server.port=3000"
       # Explicitly tell Traefik which network to use
