@@ -5,11 +5,16 @@ services:
     restart: unless-stopped
 
     environment:
+      - WUD_LOG_LEVEL=info
+      - WUD_SERVER_PORT=3000
+      - WUD_WATCHER_LOCAL_SOCKET=/var/run/docker.sock
+      - WUD_WATCHER_LOCAL_WATCHBYDEFAULT=true
       - WUD_AUTH_ADMIN_USER=admin
       - WUD_AUTH_ADMIN_PASSWORD=MySecurePassword123
 
     volumes:
       - /run/user/1002/podman/podman.sock:/var/run/docker.sock:Z
+      - /opt/wud/store:/store
 
     labels:
       - "traefik.enable=true"
