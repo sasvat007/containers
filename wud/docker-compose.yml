@@ -14,8 +14,7 @@ services:
 
     volumes:
       - /run/user/1002/podman/podman.sock:/var/run/docker.sock:Z
-      - /opt/wud/store:/store
-
+      - ~/wud/store:/store:Z
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.wud.rule=Host(`wud.sasvat.me`)"
