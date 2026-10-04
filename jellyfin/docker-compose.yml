@@ -90,6 +90,33 @@ services:
             - "traefik.http.routers.qbittorrent.tls.certresolver=le"
             - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
             - "traefik.http.routers.qbittorrent.middlewares=crowdsec-bouncer@file"
+    prowlarr:
+        image: lscr.io/linuxserver/prowlarr:latest
+        container_name: prowlarr
+        restart: unless-stopped
+
+        security_opt:
+            - label=disable
+
+        environment:
+            - PUID=1002
+            - PGID=1002
+            - TZ=Asia/Kolkata
+
+        volumes:
+            - ./prowlarr:/config
+
+        networks:
+            - media_net
+            - traefik_net
+
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.sasvat.me`)"
+            - "traefik.http.routers.prowlarr.entrypoints=websecure"
+            - "traefik.http.routers.prowlarr.tls.certresolver=le"
+            - "traefik.http.services.prowlarr.loadbalancer.server.port=9696"
+            - "traefik.http.routers.prowlarr.middlewares=crowdsec-bouncer@file"
 networks:
     traefik_net:
         external: true
