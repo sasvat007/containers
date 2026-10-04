@@ -31,6 +31,35 @@ services:
         networks:
             - traefik_net
             - media_net
+            
+    radarr:
+        image: lscr.io/linuxserver/radarr:latest
+        container_name: radarr
+        restart: unless-stopped
+
+        security_opt:
+            - label=disable
+
+        environment:
+            - PUID=1002
+            - PGID=1002
+            - TZ=Asia/Kolkata
+
+        volumes:
+            - ./radarr:/config
+            - ./:/data
+
+        networks:
+            - media_net
+            - traefik_net
+
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.radarr.rule=Host(`radarr.sasvat.me`)"
+            - "traefik.http.routers.radarr.entrypoints=websecure"
+            - "traefik.http.routers.radarr.tls.certresolver=le"
+            - "traefik.http.services.radarr.loadbalancer.server.port=7878"
+            - "traefik.http.routers.radarr.middlewares=crowdsec-bouncer@file"
 networks:
     traefik_net:
         external: true
