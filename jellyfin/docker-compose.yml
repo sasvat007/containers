@@ -60,6 +60,36 @@ services:
             - "traefik.http.routers.radarr.tls.certresolver=le"
             - "traefik.http.services.radarr.loadbalancer.server.port=7878"
             - "traefik.http.routers.radarr.middlewares=crowdsec-bouncer@file"
+
+    qbittorrent:
+        image: lscr.io/linuxserver/qbittorrent:latest
+        container_name: qbittorrent
+        restart: unless-stopped
+
+        security_opt:
+            - label=disable
+
+        environment:
+            - PUID=1002
+            - PGID=1002
+            - TZ=Asia/Kolkata
+            - WEBUI_PORT=8080
+
+        volumes:
+            - ./qbittorrent:/config
+            - ./:/data
+
+        networks:
+            - media_net
+            - traefik_net
+
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.sasvat.me`)"
+            - "traefik.http.routers.qbittorrent.entrypoints=websecure"
+            - "traefik.http.routers.qbittorrent.tls.certresolver=le"
+            - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
+            - "traefik.http.routers.qbittorrent.middlewares=crowdsec-bouncer@file"
 networks:
     traefik_net:
         external: true
