@@ -31,11 +31,13 @@ services:
         networks:
             - traefik_net
             - media_net
-            
+
     radarr:
         image: lscr.io/linuxserver/radarr:latest
         container_name: radarr
         restart: unless-stopped
+
+        userns_mode: "keep-id"
 
         security_opt:
             - label=disable
