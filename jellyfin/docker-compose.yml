@@ -30,6 +30,9 @@ services:
             - "traefik.http.routers.jellyfin.middlewares=crowdsec-bouncer@file"
         networks:
             - traefik_net
+            - media_net
 networks:
     traefik_net:
+        external: true
+    media_net:
         external: true
